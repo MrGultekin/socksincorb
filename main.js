@@ -6,8 +6,8 @@ const app = Vue.createApp({
 			description: '100% Cotton Handmade socks.',
 			url: 'https://google.com/',
 			image: './src/assets/images/socks_blue.jpg',
-			inStock: true,
-			inventory:11 ,
+			inStock: false,
+			inventory:0 ,
 			onSale: false,
 			details: ['50% cotton','30% wool','20% polyester'],
 			variants: [
