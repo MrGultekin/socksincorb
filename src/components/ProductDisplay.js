@@ -23,10 +23,10 @@ app.component('product-display', {
 						<p v-if="inStock">In Stock</p>
 						<p v-else>Out of Stock</p>
 						<p>Shipping: {{shipping}}</p>
-<!--						<ul>-->
-<!--							<li v-for="detail in details">{{detail}}</li>-->
-<!--						</ul>-->
-					  <product-details :details="details"></product-details>
+						<!--						<ul>-->
+						<!--							<li v-for="detail in details">{{detail}}</li>-->
+						<!--						</ul>-->
+						<product-details :details="details"></product-details>
 
 						<div
 								v-for="(variant,index) in variants"
@@ -37,13 +37,20 @@ app.component('product-display', {
 						</div>
 
 
-						<button class="button"
-										:class="{disabledButton: !inStock}"
-										:disabled="!inStock"
-										v-on:click="addToCart">
+						<button
+								class="button"
+								:class="{disabledButton: !inStock}"
+								:disabled="!inStock"
+								v-on:click="addToCart">
 							Add to Cart
 						</button>
-						<!--				<button class="button" @click="removeFromCart">Remove Item</button>-->
+						<button
+								class="button"
+								:class="{disabledButton: !inStock}"
+								:disabled="!inStock"
+								@click="removeFromCart">
+							Remove Item
+						</button>
 					</div>
 				</div>
 				</div>`,
@@ -59,8 +66,8 @@ app.component('product-display', {
 			// onSale: true,
 			details: ['50% cotton', '30% wool', '20% polyester'],
 			variants: [
-				{id: 0o001, color: 'green', image: './src/assets/images/socks_green.jpg', quantity: 50},
-				{id: 0o002, color: 'blue', image: './src/assets/images/socks_blue.jpg', quantity: 0},
+				{id: 1111, color: 'green', image: './src/assets/images/socks_green.jpg', quantity: 50},
+				{id: 2222, color: 'blue', image: './src/assets/images/socks_blue.jpg', quantity: 0},
 			],
 			sizes: ['S', 'M', 'L', 'XL']
 			
@@ -68,12 +75,14 @@ app.component('product-display', {
 	},
 	methods: {
 		addToCart() {
-			this.cart += 1
+			// this.cart += 1
+			this.$emit('add-to-cart', this.variants[this.selectedVariant].id)
 		},
 		removeFromCart() {
-			if (this.cart >= 1) {
-				this.cart -= 1
-			}
+			// if (this.cart >= 1) {
+			// 	this.cart -= 1
+			// }
+			this.$emit('remove-from-cart', this.variants[this.selectedVariant].id)
 		},
 		updateVariant(index) {
 			this.selectedVariant = index;
