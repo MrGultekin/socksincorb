@@ -53,9 +53,13 @@ app.component('product-display', {
 						</button>
 					</div>
 				</div>
-				<review-form></review-form>
+				<review-list v-if="reviews.length" :reviews="reviews"></review-list>
+				
+<!--				added :reviews as props and passes this reviews[] -->
+				<review-form @review-submitted="addReview"></review-form>
+<!--				listen here review-submitted that triggers addReview method-->
 				</div>`,
-	
+
 	data() {
 		return {
 			product: 'Socks',
@@ -64,13 +68,14 @@ app.component('product-display', {
 			url: 'https://google.com/',
 			selectedVariant: 0,
 			// inventory: 10,
-			// onSale: true,
+			// onSale: true,MUSTAFA GULTEKIN
 			details: ['50% cotton', '30% wool', '20% polyester'],
 			variants: [
 				{id: 1111, color: 'green', image: './src/assets/images/socks_green.jpg', quantity: 50},
 				{id: 2222, color: 'blue', image: './src/assets/images/socks_blue.jpg', quantity: 0},
 			],
-			sizes: ['S', 'M', 'L', 'XL']
+			sizes: ['S', 'M', 'L', 'XL'],
+			reviews:[],
 			
 		}
 	},
@@ -88,6 +93,11 @@ app.component('product-display', {
 		updateVariant(index) {
 			this.selectedVariant = index;
 			// console.log(index)
+		},
+		addReview(review){
+			this.reviews.push(review)
+			// we got review from event payload(means productReview)
+		
 		}
 	},
 	computed: {
